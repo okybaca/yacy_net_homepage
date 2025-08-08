@@ -64,4 +64,4 @@ page is being generated.  [See how.](contribute.md)
 * [yacy wiki](https://wiki.yacy.net/index.php/En:Start) - please help
 * [developers wiki](https://wiki.yacy.net/index.php/Dev:Start) - please help
 * [old forum until 2018](https://eldar.cz/yacy/oldforum/) - for real archaeologists -
-  - html from [github archive](https://github.com/yacy/yacy_forum_archive)
+  html from [github archive](https://github.com/yacy/yacy_forum_archive)
