@@ -2,7 +2,7 @@
 
 This is an YaCy - p2p search engine - documentation, forked from the [official
 homepage repository](https://github.com/yacy/yacy_net_homepage), made
-standalone and hosted at <https://eldar.cz/yacydocs>.
+standalone and hosted at <https://eldar.cz/yacydoc/>.
 
 
 ## How to contribute documentation to the home page:
