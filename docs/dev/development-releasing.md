@@ -28,6 +28,7 @@ as well.
 ## Build
 
 YaCy is currently built using 'ant', which takes care of all library dependencies.
+See [README.md](https://github.com/yacy/yacy_search_server/?tab=readme-ov-file#compile-and-run-yacy-from-git-sources)
 
 Transition to Maven is [in progress](https://github.com/yacy/yacy_search_server/pull/710)
 and would need help.
@@ -57,15 +58,15 @@ at Github Issues.
 
 ### 'official' releases (signed)
 
-#### ''Linux''
+#### Linux
 * done by hand, signed by @orbiter
 
-#### ''MacOS''
+#### MacOS
 * done by
-  `[package_macos_app.sh](https://github.com/yacy/yacy_search_server/blob/master/package_macos_app.sh)`
+  [package_macos_app.sh](https://github.com/yacy/yacy_search_server/blob/master/package_macos_app.sh)
 
 #### Windows 
-currently broken, [waiting for](https://github.com/yacy/yacy_search_server/issues/660) Win-friendly volunteer to design a new process
+* Windows installers are built with NSIS, see [README.md](https://github.com/yacy/yacy_search_server/?tab=readme-ov-file#build-the-windows-installer)
 
 
 
