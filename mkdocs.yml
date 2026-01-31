@@ -16,6 +16,7 @@ nav:
       - FAQ: faq.md
       - Use cases: use_cases.md
       - Features: features.md
+      - Demo, screenshots and tutorial: demonstration_tutorial_screenshot.md
 
     - Installation:
 
@@ -38,12 +39,15 @@ nav:
     - Operation:
       - operation/crawlstart_p.md
       - operation/ranking.md
+      - operation/search-parameters.md
       - operation/yacy_conf.md
       - operation/rwi-index-distribution.md
       - operation/autoupdate.md
       - operation/portforwarding.md
       - operation/yacyoverhttps.md
       - operation/performance.md
+      - operation/index-export-import.md
+      - operation/yacy-pack.md
       - operation/logging.md
       - operation/network-definition.md
       - operation/yacy-tor.md
@@ -51,6 +55,7 @@ nav:
 
     - Developers:
       - Contribute: contribute.md
+      - Development and releasing: dev/development-releasing.md
       - Crawler API: api/crawler.md
       - dev/solr.md
       - dev/solrcloud.md
