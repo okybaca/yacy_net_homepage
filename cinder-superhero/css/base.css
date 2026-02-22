@@ -9,6 +9,15 @@ h1[id]:before, h2[id]:before, h3[id]:before, h4[id]:before, h5[id]:before, h6[id
     height: 75px;
 }
 
+/* Ensure in-page anchor jumps remain visible below the fixed top navbar.
+   This covers custom anchor targets (<a id="...">) in addition to headings. */
+:target:before {
+    content: "";
+    display: block;
+    margin-top: -75px;
+    height: 75px;
+}
+
 p > img {
     max-width: 100%;
     height: auto;
