@@ -1,115 +1,256 @@
-YaCy is available as packages for Linux, Windows, macOS and also as a Docker Image. You can also install YaCy on any other operation system either by compiling it yourself or using a tarball. YaCy needs Java 11, Temurin 11 is recommended.
-
 <p><a class="btn btn-default btn-sm pull-right" href="https://github.com/yacy/yacy_net_homepage/blob/master/docs/download_installation.md" role="button" target="_blank">Improve this doc</a>
 </p>
 
-# Quick install 
+# Installation
 
-## Prequisites 
+YaCy installation instructions for Linux, Windows, macOS, and Docker. Choose one installation method.
 
-You either need Java or Docker.
+<style>
+.install-path-grid {
+  margin: 18px 0 10px 0;
+}
+.install-path-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.install-path-card {
+  display: block;
+  width: 176px;
+  min-height: 108px;
+  margin: 0;
+  padding: 12px 12px;
+  border: 1px solid #d9e2d0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fbfdf9 0%, #f3f9ef 100%);
+  color: #2a2a2a;
+  text-decoration: none !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: box-shadow 120ms ease, transform 120ms ease, border-color 120ms ease;
+  flex: 0 0 176px;
+}
+.install-path-card:hover,
+.install-path-card:focus {
+  border-color: #8bc34a;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.10);
+  transform: translateY(-1px);
+  text-decoration: none !important;
+}
+.install-path-card.is-primary {
+  border-color: #9ed36a;
+  background: linear-gradient(180deg, #f8fff2 0%, #edf8e5 100%);
+}
+.install-path-card .glyph {
+  font-size: 18px;
+  color: #4f9d2f;
+  margin-right: 6px;
+}
+.install-path-card .title {
+  display: block;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.25;
+  margin-bottom: 4px;
+  color: #1f2c16;
+}
+.install-path-card .meta {
+  display: block;
+  font-size: 11px;
+  color: #4f5b49;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.install-path-card .desc {
+  display: block;
+  font-size: 12px;
+  line-height: 1.3;
+  color: #3e463a;
+}
+.install-path-note {
+  margin: 0 0 16px 0;
+  color: #5c6657;
+  font-size: 12px;
+}
+@media (max-width: 991px) {
+  .install-path-row { justify-content: center; }
+  .install-path-card { width: calc(50% - 5px); min-height: 96px; flex-basis: calc(50% - 5px); }
+}
+@media (max-width: 600px) {
+  .install-path-card { width: 100%; min-height: 0; flex-basis: 100%; }
+}
+</style>
 
-### On Linux, Windows and macOS
+<div class="install-path-grid">
+  <div class="install-path-row">
+    <a class="install-path-card is-primary" href="#install-from-git">
+      <span class="meta"><span class="glyphicon glyphicon-wrench glyph" aria-hidden="true"></span>Recommended</span>
+      <span class="title">Install from Git (latest)</span>
+      <span class="desc">Clone, build with Ant, and run the latest YaCy directly from source.</span>
+    </a>
+    <a class="install-path-card" href="#install-docker">
+      <span class="meta"><span class="glyphicon glyphicon-hdd glyph" aria-hidden="true"></span>Container</span>
+      <span class="title">Docker</span>
+      <span class="desc">Run YaCy as a container with persistent data volume and mapped ports.</span>
+    </a>
+  </div>
+  <div class="install-path-row">
+    <a class="install-path-card" href="#package-macos">
+      <span class="meta"><span class="glyphicon glyphicon-phone glyph" aria-hidden="true"></span>Package install</span>
+      <span class="title">macOS</span>
+      <span class="desc">Download the `.dmg` and start YaCy as a desktop app.</span>
+    </a>
+    <a class="install-path-card" href="#package-linux">
+      <span class="meta"><span class="glyphicon glyphicon-console glyph" aria-hidden="true"></span>Package install</span>
+      <span class="title">Linux</span>
+      <span class="desc">Download the `.tar.gz`, unpack it, and run `startYACY.sh`.</span>
+    </a>
+    <a class="install-path-card" href="#package-windows">
+      <span class="meta"><span class="glyphicon glyphicon-modal-window glyph" aria-hidden="true"></span>Package install</span>
+      <span class="title">Windows</span>
+      <span class="desc">Use the installer (`.exe`) and launch YaCy from the installed app.</span>
+    </a>
+  </div>
+</div>
 
-Because YaCy requires Java, first download and install Java (>= Java 11) from [https://adoptium.net/](https://adoptium.net/). On Linux use your supported plattform like ```dnf``` or ```apt-get``` 
+<a id="install-from-git"></a>
+## 1. Install from Git (recommended)
 
-### With Docker
+This installs the latest YaCy code directly from the Git repository and is currently the preferred installation path.
 
-If you run YaCy with Docker you don't need to install Java on your system, it's all contained in the Coder Container.
-If you don't hava Docker installed, get it from [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/) (for macOS, Windows and Linux) or read the instructions from [https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/](https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/) to install Docker on Raspberry Pi or any other ARM-based devices.
+YaCy is often described as difficult to install, but this installation path is usually just a few commands:
 
+- clone the repository
+- build with `ant clean all dist`
+- start with `./startYACY.sh`
 
-## Download 
+### Requirements
 
+- JDK 11 or newer (use the most recent JDK available; JDK 11 is the minimum)
+- `ant`
+- `git`
 
-* <a class="btn btn-success btn" href="https://download.yacy.net/yacy_v1.924_20201214_10042.exe" role="button">Download YaCy for Windows</a> from [https://download.yacy.net/yacy_v1.924_20201214_10042.exe](https://download.yacy.net/yacy_v1.924_20201214_10042.exe)
-* <a class="btn btn-success btn" href="https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.tar.gz" role="button">Download Yacy for Linux</a> from [https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.tar.gz](https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.tar.gz)
-* <a class="btn btn-success btn" href="https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.dmg" role="button">Download YaCy for macOS</a> from [https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.dmg](https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.dmg)
-* <a class="btn btn-success btn" href="https://release.yacy.net/yacy_latest.tar.gz" role="button">Download latest developer release</A> for Linux from [https://release.yacy.net/](https://release.yacy.net/)
+On Linux, install these with your package manager (`apt`, `dnf`, etc.). On macOS, install a recent JDK and ensure `git` and `ant` are available in your shell. On Windows, use a shell environment such as **Git Bash** (or WSL) with JDK 11+, Ant, and Git installed.
 
-### With Docker
+### Common build and start commands
 
-The Official YaCy Images are hosted on Dockerhub at [https://hub.docker.com/r/yacy/yacy_search_server](https://hub.docker.com/r/yacy/yacy_search_server)
+Run the following commands:
 
-We provide amd64, arm64v8 and arm32v7 versions with the following tags:
-
-* amd64: `yacy/yacy_search_server:latest`
-* arm64v8: `yacy/yacy_search_server:aarch64-latest` 
-* arm32v7: `yacy/yacy_search_server:armv7-latest`
-
-### Get the Source Code
-The source code is inside the generic tarball. It is recommended you clone the Git repository at
-[https://github.com/yacy/yacy_search_server](https://github.com/yacy/yacy_search_server).
-
-## Installation 
-
-### On Windows
-
-* Double-clicking the downloaded installer.
-* When the message `Windows protected your PC` (in Windows 10) appears, klick `More info`->`Run anyway`. 
-  * When asked `Do you want to allow this app from an unknown publisher to make changes to your device`, klick `yes`.
-* Within the YaCy Installer, klick `Next`, `I Agree`, `Next`, `Install`, `Finish`.
-* To run YaCy, double-click the YaCy app icon (which may be on your desktop).
-* Whenever the following dialog appears click `allow private networks` and `allow access`
-![Windows Java Security Setting](img/win_java_security_dialog.png)
-* YaCy is then running on port 8090 on your machine. Open [http://localhost:8090](http://localhost:8090) in your web-browser.
-
-
-### On Linux
-
-YaCy can run under a normal user account, no root rights are needed.
-
-* Unpack the tarball.
 ```
-tar xfz yacy<VERSION>.tar.gz
-```
-
-* Run `startYACY.sh` inside your decompressed folder.
-```
-cd yacy<VERSION>
+git clone --depth 1 https://github.com/yacy/yacy_search_server.git
+cd yacy_search_server
+ant clean all dist
 ./startYACY.sh
-
 ```
-Installing from start to finish would look something like this, depending on your distro.
+
+After starting YaCy, open [http://localhost:8090](http://localhost:8090).
+
+### Details for Different Operation Systems
+
+#### Linux
+
+- YaCy can run under a normal user account (no root required for running YaCy).
+- If Java 11, Ant, and Git are installed, the common commands above are usually enough.
+
+Example package install (Debian/Ubuntu):
+
 ```
 sudo apt-get update
-sudo dpkg --configure -a
-sudo apt-get install -y openjdk-11-jre-headless
-wget https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.tar.gz
-tar xfz yacy_v1.930_202405130205_59c0cb0f3.tar.gz
-cd yacy
+# Use the most recent JDK available in your distribution (minimum: JDK 11)
+sudo apt-get install -y openjdk-17-jdk-headless ant git
+```
+
+#### macOS
+
+- Install a recent JDK (minimum: JDK 11), `git`, and `ant`.
+- If you use Homebrew, you can install the JDK with `brew install openjdk` (requires Homebrew).
+- Run the common commands above in Terminal.
+
+#### Windows
+
+- Install a recent JDK (minimum: JDK 11), Git, and Ant.
+- Open **Git Bash** (or WSL) and run the common commands above.
+- If Windows asks for network access permissions for Java, allow private networks so YaCy can listen on `localhost:8090`.
+
+
+## 2. Install from packaged downloads
+
+Use this if you prefer a ready-made installer/package instead of building from Git.
+
+<a id="package-windows"></a>
+### Windows installer
+
+* <a class="btn btn-success btn-sm" href="https://download.yacy.net/yacy_v1.924_20201214_10042.exe" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Windows installer (.exe)</a>
+
+Installation:
+
+- Double-click the downloaded installer.
+- When `Windows protected your PC` appears, click `More info` -> `Run anyway`.
+- When asked `Do you want to allow this app from an unknown publisher to make changes to your device`, click `Yes`.
+- In the YaCy installer, click `Next`, `I Agree`, `Next`, `Install`, `Finish`.
+- Start YaCy from the installed app icon.
+
+<a id="package-linux"></a>
+### Linux tarball
+
+* <a class="btn btn-success btn-sm" href="https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.tar.gz" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Linux package (.tar.gz)</a>
+* <a class="btn btn-success btn-sm" href="https://release.yacy.net/yacy_latest.tar.gz" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Latest developer release (.tar.gz)</a>
+
+Installation:
+
+- Install Java 11 if needed.
+- Unpack the tarball.
+- Start YaCy from the extracted directory.
+
+```
+tar xfz yacy<VERSION>.tar.gz
+cd yacy<VERSION>
 ./startYACY.sh
 ```
 
-### On macOS
+<a id="package-macos"></a>
+### macOS dmg
 
-* Double-click the downloaded `.dmg`-file and copy the Yacy.app to the "Application" folder.
-* To run YaCy, just double-click the YaCy app icon in your "Application" folder.
+* <a class="btn btn-success btn-sm" href="https://download.yacy.net/yacy_v1.930_202405130205_59c0cb0f3.dmg" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> macOS app image (.dmg)</a>
 
-The Macintosh application does not store it's index within the application folder (like the linux version does); instead the index is written to `~/Library/Application\ Support/net.yacy.YaCy/DATA/`. If you want to migrate YaCy index on Mac you don't need to do anything, the new YaCy version simply takes the same location again.
+Installation:
 
-### Any OS with Java >= 11
-Automatic development builds can be obtained from
-[https://release.yacy.net/](https://release.yacy.net/).
+- Double-click the downloaded `.dmg` file.
+- Copy `YaCy.app` to the `Applications` folder.
+- Start YaCy from `Applications`.
 
-### Docker ###
+The macOS application stores its index in `~/Library/Application Support/net.yacy.YaCy/DATA/`, not inside the application bundle.
 
-Running YaCy in docker is easy. If you don't have docker installed, get it from [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/) (for Mac, Windows and Linux) or read the instructions from [https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/](https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/) to install docker on Raspberry Pi or any other ARM-based devices.
+<a id="install-docker"></a>
+## 3. Install with Docker
+
+If you run YaCy with Docker, Java does not need to be installed on the host system.
+
+If you do not have Docker installed, get it from [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/) (macOS, Windows, Linux) or read [https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/](https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/) for Raspberry Pi and other ARM devices.
 
 The Official YaCy Images are hosted on Dockerhub at [https://hub.docker.com/r/yacy/yacy_search_server](https://hub.docker.com/r/yacy/yacy_search_server)
 
 We provide amd64, arm64v8 and arm32v7 versions with the following tags:
 
 * amd64: `yacy/yacy_search_server:latest`
-* arm64v8: `yacy/yacy_search_server:aarch64-latest` 
+* arm64v8: `yacy/yacy_search_server:aarch64-latest`
 * arm32v7: `yacy/yacy_search_server:armv7-latest`
 
-i.e. to install YaCy in intel-based environments, run:
+To install YaCy in Intel/AMD64 environments, run:
 
 ```
-docker run -d --name yacy_search_server -p 8090:8090 -p 8443:8443 -v yacy_search_server_data:/opt/yacy_search_server/DATA --restart unless-stopped --log-opt max-size=200m --log-opt max-file=2 yacy/yacy_search_server:latest
+docker run -d \
+  --name yacy_search_server \
+  -p 8090:8090 \
+  -p 8443:8443 \
+  -v yacy_search_server_data:/opt/yacy_search_server/DATA \
+  --restart unless-stopped \
+  --log-opt max-size=200m \
+  --log-opt max-file=2 \
+  yacy/yacy_search_server:latest
 ```
-then open http://localhost:8090 in your web-browser.
 
 The default login for YaCy on Docker is `admin`:`yacy` 
 
@@ -121,34 +262,53 @@ docker pull yacy/yacy_search_server:latest
 ```
 .. and restart the container with the same command that you used initially to run the container, i.e. (like above)
 ```
-docker run -d --name yacy_search_server -p 8090:8090 -p 8443:8443 -v yacy_search_server_data:/opt/yacy_search_server/DATA --restart unless-stopped --log-opt max-size=200m --log-opt max-file=2 yacy/yacy_search_server:latest
+docker run -d \
+  --name yacy_search_server \
+  -p 8090:8090 \
+  -p 8443:8443 \
+  -v yacy_search_server_data:/opt/yacy_search_server/DATA \
+  --restart unless-stopped \
+  --log-opt max-size=200m \
+  --log-opt max-file=2 \
+  yacy/yacy_search_server:latest
 ```
 This will mount the data volume from the upgraded yacy instance.
 
-#### Configuration with Environment Variables 
+#### Configuration with Environment Variables
 All of the environment variables (see https://github.com/yacy/yacy_search_server/blob/master/defaults/yacy.init ) can be overwritten with the `docker run` command. The environment variables are named like those in the `yacy.init` files, with all `.` (dot) replaced with `_` (underscore), all uppercase and prefixed with `YACY_`. 
 
 For example: the default peer name can be set with `network.unit.agent` in `yacy.init`. To pre-set this value during `docker run` time, set the environment variable `YACY_NETWORK_UNIT_AGENT`. The corresponding run command would be:
 ```
-docker run -d --name yacy_search_server -p 8090:8090 -p 8443:8443 -e YACY_NETWORK_UNIT_AGENT=Choomba -v yacy_search_server_data:/opt/yacy_search_server/DATA --restart unless-stopped --log-opt max-size=200m --log-opt max-file=2 yacy/yacy_search_server:latest
+docker run -d \
+  --name yacy_search_server \
+  -p 8090:8090 \
+  -p 8443:8443 \
+  -e YACY_NETWORK_UNIT_AGENT=Choomba \
+  -v yacy_search_server_data:/opt/yacy_search_server/DATA \
+  --restart unless-stopped \
+  --log-opt max-size=200m \
+  --log-opt max-file=2 \
+  yacy/yacy_search_server:latest
 ```
 This can also be used to re-start a previously started image to overwrite the already stored configuration values.
 
-#### Backup and restore of DATA folder 
+#### Backup and restore of DATA folder
 All data from YaCy is written into the data folder which is stored in the docker volume `yacy_search_server_data`. To back-up that DATA folder to `/tmp/DATA.tar.gz`, just run
 ```
 docker stop yacy_search_server
-docker run --rm -v yacy_search_server_data:/opt/yacy_search_server/DATA -v /tmp:/tmp openjdk:8-stretch bash -c "cd /opt/yacy_search_server && tar -cf - DATA | xz -q -3v -T0 > /tmp/DATA.tar.xz"
+docker run --rm -v yacy_search_server_data:/opt/yacy_search_server/DATA -v /tmp:/tmp openjdk:11-jre-slim bash -c "cd /opt/yacy_search_server && tar -cf - DATA | xz -q -3v -T0 > /tmp/DATA.tar.xz"
 docker start yacy_search_server
 ```
 
 To restore the DATA folder from `/tmp/DATA.tar.gz`, run
 ```
 docker stop yacy_search_server
-docker run --rm -v yacy_search_server_data:/opt/yacy_search_server/DATA -v /tmp:/tmp openjdk:8-stretch bash -c "cd /opt/yacy_search_server && rm -rf DATA/* && tar xf /tmp/DATA.tar.xz"
+docker run --rm -v yacy_search_server_data:/opt/yacy_search_server/DATA -v /tmp:/tmp openjdk:11-jre-slim bash -c "cd /opt/yacy_search_server && rm -rf DATA/* && tar xf /tmp/DATA.tar.xz"
 docker start yacy_search_server
 ```
-This will mount the data volume from the upgraded yacy instance.
+This will restore the data volume contents for the YaCy instance.
+
+For all installation variants: open [http://localhost:8090](http://localhost:8090) in your web browser after starting YaCy.
 
 ## Post-Installation
 
@@ -166,37 +326,6 @@ You should always set a new admin password!
  
 * [https://community.searchlab.eu](https://community.searchlab.eu)
 * see also the [YaCy Screenshots](https://yacy.net/demonstration_tutorial_screenshot/)
-
-
-# Build by your own
-
-Installation is very easy on any system. If it looks complex here it's just because we give directions in great detail.
-
-You can download and build your own YaCy with these simple steps. This is probably the best and easiest ways for everyone who knows how to use a command line interface. 
-
-You need:
-
-* jdk-11 installed (Oracle Java 11 or OpenJDK 11)
-* ant
-* git
-
-Then run:
-```
-git clone --depth 1 https://github.com/yacy/yacy_search_server.git
-cd yacy_search_server
-ant clean all
-```
-
-To start YaCy from your compiled code, simply run:
-```
-./startYACY.sh
-```
-
-If you want to make a release, run
-```
-ant clean all dist
-```
-The compiled tarball will then be in the `RELEASE` folder. 
 
 
 # Kubernetes 
@@ -256,4 +385,3 @@ YaCy is libre software - licensed GPL-2+. Downloads are provided for free! Pleas
 ">
 <input class="btn btn-success btn-sm" type="submit" name="submit" value="Donate">
 </form><br/>
-
